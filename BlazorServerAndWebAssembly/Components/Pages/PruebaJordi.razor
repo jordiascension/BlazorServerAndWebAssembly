@@ -1,0 +1,35 @@
+﻿@rendermode InteractiveServer
+<h3>PruebaJordi From Server</h3>
+
+<ul>
+    <li>Name: @RendererInfo.Name</li>
+    <li>Is Interactive: @RendererInfo.IsInteractive</li>
+    <li>Assigned Render Mode: @AssignedRenderMode</li>
+</ul>
+
+
+@if (@RendererInfo.IsInteractive)
+{    
+    <p>Server or Wasm? @handler</p>
+}
+else
+{
+    <p>Wait for it...</p>
+
+}
+
+@code {
+    string handler = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        if (OperatingSystem.IsBrowser())
+        {
+            handler = "WASM";
+        }
+        else
+        {
+            handler = "Server";
+        }
+    }
+}

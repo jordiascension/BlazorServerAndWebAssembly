@@ -1,0 +1,47 @@
+﻿@rendermode InteractiveWebAssembly
+<h3>Prueba From Client</h3>
+
+<ul>
+    <li>Name: @RendererInfo.Name</li>
+    <li>Is Interactive: @RendererInfo.IsInteractive</li>
+    <li>Assigned Render Mode: @AssignedRenderMode</li>
+</ul>
+
+<p role="status">Current count: @currentCount</p>
+
+@if (@RendererInfo.IsInteractive)
+{
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    <p>Server or Wasm? @handler</p>
+}
+else
+{
+    <p>Wait for it...</p>
+    
+}
+
+
+
+@code {
+    private int currentCount = 0;
+
+    private string handler = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        if (OperatingSystem.IsBrowser())
+        {
+            handler = "WASM";
+        }
+        else
+        {
+            handler = "Server";
+        }
+    }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+

@@ -1,0 +1,29 @@
+﻿
+
+<h3>Prueba2 Parameterized Render Mode</h3>
+
+@if (@RendererInfo.IsInteractive)
+{    
+    <p>Server or Wasm? @handler</p>
+}
+else
+{
+    <p>Wait for it...</p>
+
+}
+
+@code {
+    private string handler = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        if (OperatingSystem.IsBrowser())
+        {
+            handler = "WASM";
+        }
+        else
+        {
+            handler = "Server";
+        }
+    }
+}
